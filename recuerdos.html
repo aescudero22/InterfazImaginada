@@ -1,0 +1,163 @@
+<html>
+        <head>
+        <title>Memory Guardian</title>
+        <link rel="stylesheet" href="recuerdos.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        
+        <meta name="author" content="Alberto Escudero">
+        
+        <script type="text/javascript">      
+                function format_two_digits(n) {
+                    return n < 10 ? '0' + n : n;
+                }
+                function abre(){
+                        document.getElementById('header').style.display = 'none';
+                        document.getElementsByClassName('topgrande')[0].className = 'top';
+                        document.getElementsByClassName('botgrande')[0].className = 'bot';
+                        setTimeout("document.getElementById('header').style.display = 'block';", 300);
+                }
+                if (document.getElementById) onload = function () {
+                        abre();
+                        var hoy = new Date();
+                        var hh = format_two_digits(hoy.getHours());
+                        var mm = format_two_digits(hoy.getMinutes());
+                        
+                        document.getElementById ('time').innerHTML = hh + ':' + mm;
+                        setInterval (
+                                function(){
+                                
+                                        var hoy = new Date();
+                                        var hh = hoy.getHours();
+                                        var mm = hoy.getMinutes();
+                                        document.getElementById ('time').innerHTML = hh + ':' + mm;
+                                },
+                        60000);
+                }
+        </script>
+        
+        <script>
+                document.addEventListener('mousemove', function (event) {
+
+                if (window.event) { 
+                        event = window.event;
+                }
+         
+                var mousepositonx = event.clientX;
+                var mousepositony = event.clientY;
+
+                var elementid = document.getElementById('wrapper');
+         
+                //Sets the background position to chage based on the mouse position
+                elementid.style.backgroundPositionX = -mousepositonx/50 - 50 + 'px';
+                elementid.style.backgroundPositionY = -mousepositony/50 - 50 + 'px';
+         
+                }, false);
+        </script>       
+        
+        <script type="text/javascript">
+                function hide(){
+                        document.getElementById('header').style.display = 'none';
+                        document.getElementsByClassName('top')[0].className = 'topgrande';
+                        document.getElementsByClassName('bot')[0].className = 'botgrande';
+                        setTimeout("window.location='menu.html';", 400);
+                }
+                function rotate(n){
+                        var videos = ["https://www.youtube.com/embed/npHV4-sOLJY?modestbranding=1&autohide=1&showinfo=0",
+                                      "https://www.youtube.com/embed/N8ySjR77lvM?modestbranding=1&autohide=1&showinfo=0",
+                                      "https://www.youtube.com/embed/9NFQBgIVPTw?modestbranding=1&autohide=1&showinfo=0",
+                                      "https://www.youtube.com/embed/D2YjA9g88Jo?modestbranding=1&autohide=1&showinfo=0",
+                                      "https://www.youtube.com/embed/ov8orEJxrm0?modestbranding=1&autohide=1&showinfo=0",
+                                      "https://www.youtube.com/embed/a-T19wbcEA4?modestbranding=1&autohide=1&showinfo=0",
+                                      "https://www.youtube.com/embed/83Qo_9LbKeg?modestbranding=1&autohide=1&showinfo=0",
+                                      "https://www.youtube.com/embed/PVrljwK2bx4?modestbranding=1&autohide=1&showinfo=0"];
+                        document.getElementById('video').src = "";
+                        var list = document.querySelector("ul");
+                        if (n<3){
+                                for (var i=0; i<4-n-1; i++){
+                                        list.prepend(list.lastElementChild);
+                                }
+                        }
+                        else if (n>3){
+                                for (var i=0; i<=n-4; i++){
+                                        list.appendChild(list.firstElementChild);
+                                }
+                        }
+                        
+                        var items = list.querySelectorAll("li");
+                        for (var i=0; i<7; i++){
+                                items[i].setAttribute('onClick', 'rotate(' + i + ');');
+                                if (i==3){
+                                        document.getElementById('video').src = videos[items[i].id];
+                                }
+                        }
+                }
+                function changeweek(n){
+                        document.getElementById('w'+ n).className = 'weekselected';
+                        if (typeof changeweek.previousweek == 'undefined'){
+                                changeweek.previousweek = 24;
+                        }
+                        document.getElementById('w'+ changeweek.previousweek).className = 'week';
+                        changeweek.previousweek = n;
+                        rotate(0);
+                }
+        </script>
+        
+        </head>
+        <body>               
+                <div id="wrapper">
+                        <div class="topgrande">
+                        </div>
+                        <div class="header" id="header">
+                                <div class="timelabel">
+                                        <span id="time"></span>
+                                </div>
+                                <div class="radial" id="radial">
+                                   <ul>
+                                       <li onclick="rotate(0);" id="0"><a><span>Lunes</span></a></li>
+                                       <li onclick="rotate(1);" id="1"><a><span>Martes</span></a></li>
+                                       <li onclick="rotate(2);" id="2"><a><span>Miércoles</span></a></li>
+                                       <li onclick="rotate(3);" id="3"><a><span>Jueves</span></a></li>
+                                       <li onclick="rotate(4);" id="4"><a><span>Viernes</span></a></li>
+                                       <li onclick="rotate(5);" id="5"><a><span>Sábado</span></a></li>
+                                       <li onclick="rotate(6);" id="6"><a><span>Domingo</span></a></li>
+                                   </ul>
+                                </div>
+                                <div class="video">
+                                        <iframe id="video" frameborder = "0" allowfullscreen>
+                                        </iframe>
+                                </div>
+                                <div class="weeks">
+                                        <div id="w1" onclick="changeweek(1);" class="week"><span >1</span></div>
+                                        <div id="w2" onclick="changeweek(2);" class="week"><span >2</span></div>
+                                        <div id="w3" onclick="changeweek(3);" class="week"><span >3</span></div>
+                                        <div id="w4" onclick="changeweek(4);" class="week"><span >4</span></div>
+                                        <div id="w5" onclick="changeweek(5);" class="week"><span >5</span></div>
+                                        <div id="w6" onclick="changeweek(6);" class="week"><span >6</span></div>
+                                        <div id="w7" onclick="changeweek(7);" class="week"><span >7</span></div>
+                                        <div id="w8" onclick="changeweek(8);" class="week"><span >8</span></div>
+                                        <div id="w9" onclick="changeweek(9);" class="week"><span >9</span></div>
+                                        <div id="w10" onclick="changeweek(10);" class="week"><span >10</span></div>
+                                        <div id="w11" onclick="changeweek(11);" class="week"><span >11</span></div>
+                                        <div id="w12" onclick="changeweek(12);" class="week"><span >12</span></div>
+                                        <div id="w13" onclick="changeweek(13);" class="week"><span >13</span></div>
+                                        <div id="w14" onclick="changeweek(14);" class="week"><span >14</span></div>
+                                        <div id="w15" onclick="changeweek(15);" class="week"><span >15</span></div>
+                                        <div id="w16" onclick="changeweek(16);" class="week"><span >16</span></div>
+                                        <div id="w17" onclick="changeweek(17);" class="week"><span >17</span></div>
+                                        <div id="w18" onclick="changeweek(18);" class="week"><span >18</span></div>
+                                        <div id="w19" onclick="changeweek(19);" class="week"><span >19</span></div>
+                                        <div id="w20" onclick="changeweek(20);" class="week"><span >20</span></div>
+                                        <div id="w21" onclick="changeweek(21);" class="week"><span >21</span></div>
+                                        <div id="w22" onclick="changeweek(22);" class="week"><span >22</span></div>
+                                        <div id="w23" onclick="changeweek(23);" class="week"><span >23</span></div>
+                                        <div id="w24" onclick="changeweek(24);" class="weekselected"><span >24</span></div>
+                                </div>
+                                <div class="exit" onclick="hide();">
+                                        <span id="exit">Volver</span>
+                                </div>
+                        </div>
+                        <div class="botgrande">
+                        </div>
+                </div>
+        </body>
+</html>

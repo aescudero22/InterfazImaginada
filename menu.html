@@ -1,0 +1,94 @@
+<html>
+        <head>
+        <title>Memory Guardian</title>
+        <link rel="stylesheet" href="menu.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        
+        <meta name="author" content="Alberto Escudero">
+        
+        <script type="text/javascript">      
+                function format_two_digits(n) {
+                    return n < 10 ? '0' + n : n;
+                }
+                function abre(){
+                        document.getElementById('header').style.display = 'none';
+                        document.getElementsByClassName('topgrande')[0].className = 'top';
+                        document.getElementsByClassName('botgrande')[0].className = 'bot';
+                        setTimeout("document.getElementById('header').style.display = 'block';", 300);
+                }
+                if (document.getElementById) onload = function () {
+                        abre();
+                        var hoy = new Date();
+                        var hh = format_two_digits(hoy.getHours());
+                        var mm = format_two_digits(hoy.getMinutes());
+                        
+                        document.getElementById ('time').innerHTML = hh + ':' + mm;
+                        setInterval (
+                                function(){
+                                
+                                        var hoy = new Date();
+                                        var hh = hoy.getHours();
+                                        var mm = hoy.getMinutes();
+                                        document.getElementById ('time').innerHTML = hh + ':' + mm;
+                                },
+                        60000);
+                }
+        </script>
+        
+        <script>
+                document.addEventListener('mousemove', function (event) {
+
+                if (window.event) { 
+                        event = window.event;
+                }
+         
+                var mousepositonx = event.clientX;
+                var mousepositony = event.clientY;
+
+                var elementid = document.getElementById('wrapper');
+         
+                //Sets the background position to chage based on the mouse position
+                elementid.style.backgroundPositionX = -mousepositonx/50 - 50 + 'px';
+                elementid.style.backgroundPositionY = -mousepositony/50 - 50 + 'px';
+         
+                }, false);
+        </script>       
+        
+        <script type="text/javascript">
+                function hide(){
+                        document.getElementById('header').style.display = 'none';
+                        document.getElementsByClassName('top')[0].className = 'topgrande';
+                        document.getElementsByClassName('bot')[0].className = 'botgrande';
+                        setTimeout("window.location='index.html';", 400);
+                }
+                function recuerdos(){
+                        document.getElementById('header').style.display = 'none';
+                        document.getElementsByClassName('top')[0].className = 'topgrande';
+                        document.getElementsByClassName('bot')[0].className = 'botgrande';
+                        setTimeout("window.location='recuerdos.html';", 400);
+                }                  
+        </script>
+        
+        </head>
+        <body>               
+                <div id="wrapper">
+                        <div class="topgrande">
+                        </div>
+                        <div class="header" id="header">
+                                <div class="timelabel">
+                                        <span id="time"></span>
+                                </div>
+                                <div class="radial" id="radial">
+                                   <ul>
+                                       <li onClick="recuerdos();"><a><span class="recuerdos">Recuerdos</span></a></li>
+                                   </ul>
+                                </div>
+                                <div class="exit" onclick="hide();">
+                                        <span id="exit">Salir</span>
+                                </div>
+                        </div>
+                        <div class="botgrande">
+                        </div>
+                </div>
+        </body>
+</html>
